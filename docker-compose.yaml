@@ -1,0 +1,8 @@
+services:
+  watchtower:
+    image: nickfedor/watchtower
+    environment:
+      WATCHTOWER_POLL_INTERVAL: 60 # poll for updates every 60 seconds
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    container_name: watchtower
