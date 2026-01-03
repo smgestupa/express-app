@@ -23,4 +23,22 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/beermapping:latest 
+          tags: ${{ secrets.DOCKER_USERNAME }}/beermapping:latest
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # required for OIDC auth
+      contents: read # required to check out the repository
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Deploy Lambda function
+        uses: aws-actions/aws-lambda-deploy@v1
+        with:
+          function_name: ${{ vars.FUNCTION_NAME }}
+          code-artifacts-dir: ${{ vars.CODE_ARTIFACTS_DIR }}
