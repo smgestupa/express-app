@@ -38,7 +38,8 @@ jobs:
           role-to-assume: ${{ vars.ROLE_TO_ASSUME }}
           aws-region: ${{ vars.AWS_REGION }}
       - name: Install packages
-        uses: npm install
+        run: npm install
+        shell: bash
       - name: Deploy Lambda function
         uses: aws-actions/aws-lambda-deploy@v1
         with:
