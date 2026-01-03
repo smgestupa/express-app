@@ -40,5 +40,5 @@ jobs:
       - name: Deploy Lambda function
         uses: aws-actions/aws-lambda-deploy@v1
         with:
-          function_name: ${{ vars.FUNCTION_NAME }}
+          function-name: ${{ vars.FUNCTION_NAME }}
           code-artifacts-dir: ${{ vars.CODE_ARTIFACTS_DIR }}
